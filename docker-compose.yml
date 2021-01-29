@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  db:
+    image: mariadb
+    ports:
+      - 3306:3306
+    command: --init-file /data/application/init.sql
+    restart: always
+    volumes:
+      - type: bind
+        source: ./init.sql
+        target: /data/application/init.sql
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  app:
+    build: .
+    depends_on:
+      - db
+    image: mysql-python3-starter/starter-kit
+    restart: on-failure
+    links:
+      - db
+volumes:
+  mysql_data:

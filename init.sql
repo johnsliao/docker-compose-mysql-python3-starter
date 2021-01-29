@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS mysql_db;
+
+USE mysql_db;
+
+DROP TABLE IF EXISTS chart_data;
+
+CREATE TABLE chart_data (
+  x INT NOT NULL PRIMARY KEY,
+  y INT NOT NULL
+);
